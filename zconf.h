@@ -373,6 +373,11 @@
 #  endif
 #endif
 
+#if defined(macintosh) && defined(__MWERKS__)
+   /* Metrowerks CodeWarrior on classic Mac has unistd.h but not off_t or sys/types.h */
+#  include <unistd.h>
+#endif
+
 #ifndef ZEXTERN
 #  define ZEXTERN extern
 #endif
@@ -439,7 +444,7 @@ typedef uLong FAR uLongf;
 #  define Z_HAVE_STDARG_H
 #endif
 
-#ifdef STDC
+#if defined(STDC) && !defined(macintosh)
 #  ifndef Z_SOLO
 #    include <sys/types.h>      /* for off_t */
 #  endif
